@@ -1,0 +1,100 @@
+[
+  {
+    "id": "september",
+    "nom": "September",
+    "date": "2026-09-26",
+    "fichier": "september-2026.txt",
+    "format": "s8r14 1:00",
+    "rounds": 20
+  },
+  {
+    "id": "august-2026",
+    "nom": "August",
+    "date": "2026-08-29",
+    "fichier": "august-2026.txt",
+    "format": "s8r14 3:00",
+    "rounds": 10
+  },
+  {
+    "id": "october",
+    "nom": "October",
+    "date": "2026-10-17",
+    "time": "09:00",
+    "format": "s8r14 3:00",
+    "rounds": 10,
+    "description": "8 threads max"
+  },
+  {
+    "id": "july",
+    "nom": "july",
+    "date": "2026-07-25",
+    "format": "s8r14 1:00",
+    "rounds": 15,
+    "fichier": "july-2026.txt"
+  },
+  {
+    "id": "june",
+    "nom": "june",
+    "date": "2026-06-27",
+    "format": "s8r14 3:00",
+    "rounds": 10,
+    "fichier": "june-2026.txt"
+  },
+  {
+    "id": "november",
+    "nom": "November",
+    "date": "2026-11-21",
+    "time": "09:00",
+    "format": "s8r14 1:00",
+    "rounds": 20,
+    "description": "8 threads max"
+  },
+  {
+    "id": "may-A",
+    "nom": "may A",
+    "date": "2026-05-23",
+    "format": "s8r14 1:00",
+    "rounds": 22,
+    "fichier": "may-a-2026.txt"
+  },
+  {
+    "id": "may-b",
+    "nom": "may B",
+    "date": "2026-05-23",
+    "format": "s8r14 1:00",
+    "rounds": 14,
+    "fichier": "may-b-2026.txt"
+  },
+  {
+    "id": "april",
+    "nom": "April",
+    "date": "2026-04-18",
+    "format": "s8r14 3:00",
+    "rounds": 10,
+    "fichier": "april-2026.txt"
+  },
+  {
+    "id": "march",
+    "nom": "March",
+    "date": "2026-03-28",
+    "format": "s8r14 1:00",
+    "rounds": 20,
+    "fichier": "march-2026.txt"
+  },
+  {
+    "id": "febuary",
+    "nom": "Febuary",
+    "date": "2026-02-21",
+    "format": "s8r14 1:00",
+    "rounds": 20,
+    "fichier": "febuary-2026.txt"
+  },
+  {
+    "id": "january",
+    "nom": "January",
+    "date": "2026-01-24",
+    "format": "s8r14 1:00",
+    "rounds": 20,
+    "fichier": "january-2026.txt"
+  }
+]

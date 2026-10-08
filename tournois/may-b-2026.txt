@@ -1,0 +1,127 @@
+
+round   1:
+  1.1    Kalmia   Melody    -1.0
+  1.2  ymatioun   Cyrano    +0.0
+round   2:
+  2.1    Kalmia ymatioun    -1.0
+  2.2    Cyrano   Melody    +0.0
+round   3:
+  3.1    Cyrano   Kalmia    -2.0
+  3.2    Melody ymatioun    +0.0
+round   4:
+  4.1    Melody   Kalmia    +3.0
+  4.2    Cyrano ymatioun    +0.0
+round   5:
+  5.1  ymatioun   Kalmia    +2.0
+  5.2    Melody   Cyrano    +0.0
+round   6:
+  6.1    Kalmia   Cyrano    +1.0
+  6.2  ymatioun   Melody    +0.0
+round   7:
+  7.1    Kalmia   Melody    +0.0
+  7.2  ymatioun   Cyrano    +0.0
+round   8:
+  8.1    Kalmia ymatioun    +0.0
+  8.2    Cyrano   Melody    -2.0
+round   9:
+  9.1    Cyrano   Kalmia    -1.0
+  9.2    Melody ymatioun    +0.0
+round  10:
+ 10.1    Melody   Kalmia    +0.0
+ 10.2    Cyrano ymatioun    +0.0
+round  11:
+ 11.1  ymatioun   Kalmia    +0.0
+ 11.2    Melody   Cyrano    +1.0
+round  12:
+ 12.1    Kalmia   Cyrano    +0.0
+ 12.2  ymatioun   Melody    +0.0
+round  13:
+ 13.1    Kalmia   Melody    +0.0
+ 13.2  ymatioun   Cyrano    +0.0
+round  14:
+ 14.1    Kalmia ymatioun    +0.0
+ 14.2    Cyrano   Melody    +0.0
+round  15:
+ 15.1    Cyrano   Kalmia    +0.0
+ 15.2    Melody ymatioun    -1.0
+round  16:
+ 16.1    Melody   Kalmia    +0.0
+ 16.2    Cyrano ymatioun    +0.0
+round  17:
+ 17.1  ymatioun   Kalmia    +1.0
+ 17.2    Melody   Cyrano    +0.0
+round  18:
+ 18.1    Kalmia   Cyrano    +0.0
+ 18.2  ymatioun   Melody    +0.0
+round  19:
+ 19.1    Kalmia   Melody    -1.0
+ 19.2  ymatioun   Cyrano    +0.0
+round  20:
+ 20.1    Kalmia ymatioun    +1.0
+ 20.2    Cyrano   Melody    +0.0
+round  21:
+ 21.1    Cyrano   Kalmia    +0.0
+ 21.2    Melody ymatioun    -1.0
+round  22:
+ 22.1    Melody   Kalmia    +0.0
+ 22.2    Cyrano ymatioun    +0.0
+round  23:
+ 23.1  ymatioun   Kalmia    +0.0
+ 23.2    Melody   Cyrano    -1.0
+round  24:
+ 24.1    Kalmia   Cyrano    -1.0
+ 24.2  ymatioun   Melody    +1.0
+round  25:
+ 25.1    Kalmia   Melody    -2.0
+ 25.2  ymatioun   Cyrano    +0.0
+round  26:
+ 26.1    Kalmia ymatioun    +0.0
+ 26.2    Cyrano   Melody    +1.0
+round  27:
+ 27.1    Cyrano   Kalmia    -1.0
+ 27.2    Melody ymatioun    +0.0
+round  28:
+ 28.1    Melody   Kalmia    +0.0
+ 28.2    Cyrano ymatioun    +0.0
+round  29:
+ 29.1  ymatioun   Kalmia    +1.0
+ 29.2    Melody   Cyrano    -3.0
+round  30:
+ 30.1    Kalmia   Cyrano    +0.0
+ 30.2  ymatioun   Melody    -1.0
+round  31:
+ 31.1    Kalmia   Melody    +0.0
+ 31.2  ymatioun   Cyrano    +1.0
+round  32:
+ 32.1    Kalmia ymatioun    -1.0
+ 32.2    Cyrano   Melody    -2.0
+round  33:
+ 33.1    Cyrano   Kalmia    +0.0
+ 33.2    Melody ymatioun    -1.0
+round  34:
+ 34.1    Melody   Kalmia    +1.0
+ 34.2    Cyrano ymatioun    +0.0
+round  35:
+ 35.1  ymatioun   Kalmia    -1.0
+ 35.2    Melody   Cyrano    +1.0
+round  36:
+ 36.1    Kalmia   Cyrano    +1.0
+ 36.2  ymatioun   Melody    -1.0
+round  37:
+ 37.1    Kalmia   Melody    +0.0
+ 37.2  ymatioun   Cyrano    +0.0
+round  38:
+ 38.1    Kalmia ymatioun    +1.0
+ 38.2    Cyrano   Melody    -1.0
+round  39:
+ 39.1    Cyrano   Kalmia    -1.0
+ 39.2    Melody ymatioun    +0.0
+round  40:
+ 40.1    Melody   Kalmia    +0.0
+ 40.2    Cyrano ymatioun    +0.0
+round  41:
+ 41.1  ymatioun   Kalmia    +0.0
+ 41.2    Melody   Cyrano    +0.0
+round  42:
+ 42.1    Kalmia   Cyrano    +2.0
+ 42.2  ymatioun   Melody    -1.0
