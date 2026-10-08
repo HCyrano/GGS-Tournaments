@@ -289,9 +289,6 @@ async function render() {
   const app = $('#app');
   const route = location.hash.slice(1) || '/';
   document.title = 'GGS Tournaments';
-  document.querySelectorAll('.nav-link[data-route]').forEach(a => {
-    if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
-  });
 
   try {
     const list = await loadList();
