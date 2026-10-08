@@ -30,27 +30,42 @@ const formatLine = (t, fallbackRounds) => {
   return parts.length ? parts.join(' · ') : '<strong>Format:</strong> TBA';
 };
 
-// Date/heure : heure locale du visiteur + rappel de l'heure de Paris
-const getDateTime = t => {
-  const timeStr = getStartTime(t);
-  if (timeStr === 'TBA') return `${t.date} · TBA`;
-
-  // Décalage de Paris à cette date (GMT+1 ou GMT+2), via Intl
-  const probe = new Date(`${t.date}T${timeStr}:00Z`);
+// Instant correspondant à une heure de Paris (date AAAA-MM-JJ + HH:MM)
+const parisInstant = (date, timeStr) => {
+  const probe = new Date(`${date}T${timeStr}:00Z`);
   const off = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Paris', timeZoneName: 'shortOffset' })
     .formatToParts(probe).find(p => p.type === 'timeZoneName').value; // ex. "GMT+2"
   const hours = parseInt(off.replace('GMT', '') || '0', 10);
   const offset = (hours < 0 ? '-' : '+') + String(Math.abs(hours)).padStart(2, '0') + ':00';
-  const parisDate = new Date(`${t.date}T${timeStr}:00${offset}`);
+  return new Date(`${date}T${timeStr}:00${offset}`);
+};
+const inParis = () => Intl.DateTimeFormat().resolvedOptions().timeZone === 'Europe/Paris';
+const tzShort = d => new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+  .formatToParts(d).find(p => p.type === 'timeZoneName').value;
 
-  const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const localTime = parisDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }); // 24 h
-  const localDate = parisDate.toLocaleDateString('sv'); // AAAA-MM-JJ
-  const tzName = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
-    .formatToParts(parisDate).find(p => p.type === 'timeZoneName').value;
+// Date/heure : heure locale du visiteur + rappel de l'heure de Paris
+const getDateTime = t => {
+  const timeStr = getStartTime(t);
+  if (timeStr === 'TBA') return `${t.date} · TBA`;
+  const d = parisInstant(t.date, timeStr);
+  const base = `${d.toLocaleDateString('sv')} · ${d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })} (${tzShort(d)})`;
+  return inParis() ? base : `${base} — ${timeStr} Paris`;
+};
 
-  const base = `${localDate} · ${localTime} (${tzName})`;
-  return userTz === 'Europe/Paris' ? base : `${base} — ${timeStr} Paris`;
+// Prochain samedi (AAAA-MM-JJ), aujourd'hui compris
+const nextSaturday = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + ((6 - d.getDay() + 7) % 7));
+  return d.toLocaleDateString('sv');
+};
+
+// Heure locale du visiteur pour une heure de Paris le prochain samedi ; '' si le visiteur est à Paris
+const localStart = timeStr => {
+  if (inParis()) return '';
+  const d = parisInstant(nextSaturday(), timeStr);
+  const time = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+  const day = d.toLocaleDateString('en-US', { weekday: 'long' });
+  return `; ${day !== 'Saturday' ? day + ' ' : ''}${time} ${tzShort(d)} in your time zone`;
 };
 
 /* ---------- Crosstable ---------- */
@@ -157,12 +172,126 @@ const yearTabs = (years, current, done) =>
   }).join('') +
   `</nav>`;
 
+
+/* ---------- Envoi du formulaire de contact via mailto ---------- */
+window.handleContactSubmit = function(event) {
+  event.preventDefault();
+  const name = document.getElementById('contact-name').value;
+  const email = document.getElementById('contact-email').value;
+  const message = document.getElementById('contact-message').value;
+
+  const user = 'hcyrano';
+  const domain = 'free.fr';
+  const recipient = `${user}@${domain}`;
+
+  const subject = encodeURIComponent(`[GGS Tournament] Inquiry from ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+
+  window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+};
+
+/* ---------- Page « How to join » ---------- */
+
+const joinPage = () => `
+<p class="back-nav"><a class="nav-link" href="#/">← Home</a></p>
+<h2>How to participate</h2>
+<p class="lead">Every month, an online Othello AI tournament is organized on the GGS server, open to all programs.</p>
+
+<section class="card prose">
+  <h3>When</h3>
+  <p>The tournament usually takes place on a Saturday and starts at 9:00 AM (Paris time${localStart('09:00')}). Registration opens 15 minutes before the start of the competition.</p>
+</section>
+
+<section class="section-block">
+  <h3 class="block-title">Registration procedure</h3>
+  <div class="card prose">
+    <p>To register for the tournament, you must have an active GGS account.</p>
+    <p><strong>Account creation:</strong> send an email to Michael Buro (contact details in the Contact section of the <a href="https://skatgame.net/mburo/ggsa/index.html">GGSA website</a>) with the following information:</p>
+    <ul>
+      <li>Your name</li>
+      <li>Your desired login</li>
+      <li>A password</li>
+    </ul>
+    <p class="tip"><strong>Tip:</strong> I recommend requesting 2 or 3 logins.</p>
+    <p>To follow the tournament as a human observer, I suggest using the dedicated Java application <a href="https://skatgame.net/mburo/ggsa/index.html">GGSA</a>.</p>
+  </div>
+</section>
+
+<section class="section-block">
+  <h3 class="block-title">Tournament rules and details</h3>
+  <div class="rules">
+    <div class="card prose">
+      <h4>1. Match format</h4>
+      <p>Each match between two AIs consists of two synchronized mirror games (Game A and Game B):</p>
+      <ul>
+        <li>In Game A, your AI plays with White (or Black).</li>
+        <li>In Game B, your AI plays with Black (or White).</li>
+      </ul>
+    </div>
+    <div class="card prose">
+      <h4>2. Gameplay and starting positions</h4>
+      <ul>
+        <li>Both games start from identical positions, randomly generated with 14 discs already placed on the board.</li>
+        <li>Moves are revealed and transmitted simultaneously once both AIs have made their move.</li>
+        <li>Clocks and thinking time are managed individually for each game.</li>
+      </ul>
+    </div>
+    <div class="card prose">
+      <h4>3. Scoring and standings</h4>
+      <p>A match winner is determined by the total number of discs accumulated across both games.</p>
+      <p>Tournament points are awarded as follows:</p>
+      <ul>
+        <li><strong>Win:</strong> 1 point</li>
+        <li><strong>Draw:</strong> 0.5 points</li>
+        <li><strong>Loss:</strong> 0 points</li>
+      </ul>
+    </div>
+    <div class="card prose">
+      <h4>4. Time management</h4>
+      <ul>
+        <li>The time control alternates every month: either 1 minute or 3 minutes per match.</li>
+        <li><strong>Time overrun:</strong> if a program exceeds the allocated time, it receives an extra 30 seconds to finish the game, but its score for that game will be capped at −2 discs.</li>
+      </ul>
+    </div>
+    <div class="card prose">
+      <h4>5. Hardware limits</h4>
+      <p>To ensure fairness between machines, programs are limited to a maximum of 8 threads, which you can allocate as you wish between the two games (e.g. 8+0, 6+2, 4+4).</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-block">
+  <h3 class="block-title">Contact us</h3>
+  <div class="card prose">
+    <p>Have questions? Send a message directly using the form below:</p>
+    <form onsubmit="handleContactSubmit(event)" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px;">
+      <div>
+        <label for="contact-name" style="display: block; font-weight: bold; margin-bottom: 4px;">Your Name</label>
+        <input type="text" id="contact-name" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <div>
+        <label for="contact-email" style="display: block; font-weight: bold; margin-bottom: 4px;">Your Email</label>
+        <input type="email" id="contact-email" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+      </div>
+      <div>
+        <label for="contact-message" style="display: block; font-weight: bold; margin-bottom: 4px;">Message</label>
+        <textarea id="contact-message" rows="4" required style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; resize: vertical;"></textarea>
+      </div>
+      <button type="submit" style="align-self: flex-start; padding: 8px 16px; background-color: #2a6fdb; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Send Message</button>
+    </form>
+  </div>
+</section>
+`;
+
 /* ---------- Rendu ---------- */
 
 async function render() {
   const app = $('#app');
   const route = location.hash.slice(1) || '/';
   document.title = 'GGS Tournaments';
+  document.querySelectorAll('.nav-link[data-route]').forEach(a => {
+    if (a.dataset.route === route) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
 
   try {
     const list = await loadList();
@@ -175,7 +304,7 @@ async function render() {
 
       if (pending.length) {
         html += `<section class="section-block"><div class="section-header"><h2>Upcoming tournaments</h2></div><div class="next-grid">` +
-          pending.map(t => `<div class="card-next"><div class="card-next-header"><span class="badge-status pending">Announcement</span><span class="date-tag">${esc(getDateTime(t))}</span></div><h3>${esc(t.nom)}</h3>${t.description ? `<p class="desc">${esc(t.description)}</p>` : ''}<p class="format-info"><strong>Format:</strong> ${esc(getFormat(t))} · <strong>Rounds:</strong> ${esc(getRounds(t))}</p><p class="registration-note">Registration opens 15 minutes before the start.</p></div>`).join('') +
+          pending.map(t => `<div class="card-next"><div class="card-next-header"><span class="badge-status pending">Announcement</span><span class="date-tag">${esc(getDateTime(t))}</span></div><h3>${esc(t.nom)}</h3>${t.description ? `<p class="desc">${esc(t.description)}</p>` : ''}<p class="format-info"><strong>Format:</strong> ${esc(getFormat(t))} · <strong>Rounds:</strong> ${esc(getRounds(t))}</p><p class="registration-note">Registration opens 15 minutes before the start. <a href="#/join">How to participate</a></p></div>`).join('') +
           `</div></section>`;
       }
 
@@ -201,6 +330,10 @@ async function render() {
       if (!c.n) throw new Error('No games could be parsed from ' + t.fichier);
       document.title = `${t.nom} · GGS Tournaments`;
       app.innerHTML = `<p class="back-nav"><a class="nav-link" href="#/archive/${yearOf(t)}">← All tournaments</a></p><h2>${esc(t.nom)} (${esc(t.date)})</h2><p class="format-info results-format">${formatLine(t, c.rounds)}</p><section class="standings-section"><h3>Tournament standings</h3><div class="card">${crosstable(c)}</div><p class="table-note">W-D-L = Wins – Draws – Losses · 1 point for a win, 0.5 for a draw, 0 for a loss.</p></section>${curve(c)}`;
+
+    } else if (route === '/join') {
+      document.title = 'How to participate · GGS Tournaments';
+      app.innerHTML = joinPage();
 
     } else {
       throw new Error('Page not found');
