@@ -213,7 +213,7 @@ const joinPage = () => `
       <li>A password</li>
     </ul>
     <p class="tip"><strong>Tip:</strong> I recommend requesting 2 or 3 logins.</p>
-    <p>To follow the tournament as a human observer, I suggest using the dedicated Java application <a href="https://skatgame.net/mburo/ggsa/index.html">GGSA</a> (contact us for the latest version).</p>
+    <p>To follow the tournament as a human observer, I suggest using the dedicated Java application <a href="ggsa.jar" download>GGSA</a> (download the latest version directly here).</p>
   </div>
 </section>
 
