@@ -87,8 +87,11 @@ body {
 .main-content {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 24px 20px 60px;
+  padding: 24px 20px 20px;
 }
+
+/* Uniquement le dernier bloc, jamais celui des annonces */
+.main-content .section-block:last-child { margin-bottom: 0; }
 
 /* Hero */
 .hero {
@@ -262,7 +265,7 @@ svg { width: 100%; height: auto; display: block; }
 
 .footer {
   text-align: center;
-  padding: 20px;
+  padding: 8px 20px 20px;
   font-size: 13px;
   color: var(--mut);
   border-top: 1px solid var(--line);
