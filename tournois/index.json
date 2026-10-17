@@ -19,10 +19,10 @@
     "id": "october",
     "nom": "October",
     "date": "2026-10-17",
-    "time": "09:00",
     "format": "s8r14 3:00",
     "rounds": 10,
-    "description": "8 threads max"
+    "description": "8 threads max",
+    "fichier": "october.txt"
   },
   {
     "id": "july",
