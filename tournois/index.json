@@ -22,7 +22,7 @@
     "format": "s8r14 3:00",
     "rounds": 10,
     "description": "8 threads max",
-    "fichier": "october.txt"
+    "fichier": "october-2026.txt"
   },
   {
     "id": "july",
