@@ -96,5 +96,14 @@
     "format": "s8r14 1:00",
     "rounds": 20,
     "fichier": "january-2026.txt"
+  },
+  {
+    "id": "december",
+    "nom": "December",
+    "date": "2026-12-19",
+    "time": "09:00",
+    "format": "s8r14 3:00",
+    "rounds": 10,
+    "description": "8 threads max"
   }
 ]
