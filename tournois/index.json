@@ -41,15 +41,6 @@
     "fichier": "june-2026.txt"
   },
   {
-    "id": "november",
-    "nom": "November",
-    "date": "2026-11-21",
-    "time": "09:00",
-    "format": "s8r14 1:00",
-    "rounds": 20,
-    "description": "8 threads max"
-  },
-  {
     "id": "may-A",
     "nom": "may A",
     "date": "2026-05-23",
